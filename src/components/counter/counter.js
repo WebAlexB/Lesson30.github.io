@@ -1,34 +1,41 @@
-import React, { useState, forwardRef, useImperativeHandle } from 'react';
-import NumberButton from "../numberButton/numberButton";
-import Display from "../display/display";
-import ResetButton from "../resetButton/resetButton";
+// Counter.js
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { increment} from '../actions/increment';
+import { decrement} from '../actions/decrement';
+import { reset } from '../actions/reset';
+
+import NumberButton from '../numberButton/numberButton';
+import Display from '../display/display';
+import ResetButton from '../resetButton/resetButton';
 import '../counter/counter.css';
 
-const Counter = forwardRef((props, ref) => {
-    const [value, setValue] = useState(props.initialValue);
+const Counter = () => {
+    const dispatch = useDispatch();
+    const value = useSelector(state => state.value);
 
-    const handleButtonClick = (operation) => {
-        setValue(prevState => operation === "plus" ? prevState + 1 : prevState - 1);
+    const handleButtonClick = operation => {
+        if (operation === 'plus') {
+            dispatch(increment());
+        } else {
+            dispatch(decrement());
+        }
     };
 
     const handleReset = () => {
-        setValue(props.initialValue);
+        dispatch(reset());
     };
-
-    useImperativeHandle(ref, () => ({
-        handleReset: () => handleReset()
-    }));
 
     return (
         <div className="number-content">
             <div className="content-action">
-                <NumberButton onClick={() => handleButtonClick("plus")} text="+" />
+                <NumberButton onClick={() => handleButtonClick('plus')} text="+" />
                 <Display value={value} />
-                <NumberButton onClick={() => handleButtonClick("minus")} text="-" />
+                <NumberButton onClick={() => handleButtonClick('minus')} text="-" />
             </div>
             <ResetButton onClick={handleReset} />
         </div>
     );
-});
+};
 
 export default Counter;
