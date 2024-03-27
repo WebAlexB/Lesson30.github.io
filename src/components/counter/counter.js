@@ -5,14 +5,14 @@ import ResetButton from "../resetButton/resetButton";
 import '../counter/counter.css';
 
 const Counter = forwardRef((props, ref) => {
-    const [value, setValue] = useState(props.value);
+    const [value, setValue] = useState(props.initialValue);
 
     const handleButtonClick = (operation) => {
         setValue(prevState => operation === "plus" ? prevState + 1 : prevState - 1);
     };
 
     const handleReset = () => {
-        setValue(props.value);
+        setValue(props.initialValue);
     };
 
     useImperativeHandle(ref, () => ({
@@ -26,7 +26,7 @@ const Counter = forwardRef((props, ref) => {
                 <Display value={value} />
                 <NumberButton onClick={() => handleButtonClick("minus")} text="-" />
             </div>
-            <ResetButton onClick={props.onReset} />
+            <ResetButton onClick={handleReset} />
         </div>
     );
 });
