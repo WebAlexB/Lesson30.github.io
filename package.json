@@ -19,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "@fastify/static": "^7.0.1",
+    "@reduxjs/toolkit": "^2.2.2",
     "fastify": "^4.26.2",
     "gh-pages": "^6.1.1",
     "path": "^0.12.7",

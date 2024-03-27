@@ -1,10 +1,6 @@
-// Counter.js
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { increment} from '../actions/increment';
-import { decrement} from '../actions/decrement';
-import { reset } from '../actions/reset';
-
+import { increment, decrement, reset } from '../slice/counterSlice';
 import NumberButton from '../numberButton/numberButton';
 import Display from '../display/display';
 import ResetButton from '../resetButton/resetButton';
@@ -12,7 +8,7 @@ import '../counter/counter.css';
 
 const Counter = () => {
     const dispatch = useDispatch();
-    const value = useSelector(state => state.value);
+    const value = useSelector(state => state.counter.value);
 
     const handleButtonClick = operation => {
         if (operation === 'plus') {
